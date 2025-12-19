@@ -126,19 +126,9 @@ function App() {
             </h1>
 
             <p className="mt-3 text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
-              Paste a short news snippet below and get an instant AI credibility analysis.
+              Paste a short news snippet below and get a model-based classification.
             </p>
-
-            {/* AI waveform centered */}
-            <div className="mt-6 flex items-end justify-center gap-[3px] h-8 opacity-80">
-              {[6, 12, 18, 26, 18, 12, 8, 16, 24, 14, 20, 10].map((h, idx) => (
-                <div
-                  key={idx}
-                  className="bg-gradient-to-t from-blue-500/70 to-cyan-300/90 rounded-full animate-wave"
-                  style={{ height: `${h}px`, width: "6px", animationDelay: `${idx * 60}ms` }}
-                />
-              ))}
-            </div>
+            
           </section>
 
 
@@ -148,9 +138,6 @@ function App() {
             <section className="bg-slate-900/80 border border-slate-800/80 rounded-2xl sm:rounded-3xl shadow-[0_24px_70px_rgba(15,23,42,0.9)] p-5 sm:p-6 space-y-4 backdrop-blur-md">
               <div className="flex items-center justify-between gap-2">
                 <div className="text-left">
-                  <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
-                    Article draft
-                  </p>
                   <p className="text-sm font-medium text-slate-100">
                     Paste content to investigate
                   </p>
@@ -202,10 +189,10 @@ function App() {
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
-                      Verdict panel
+                      Result
                     </p>
                     <p className="text-sm font-medium text-slate-100">
-                      AI fact-check summary
+                      Model Output
                     </p>
                   </div>
                 </div>
@@ -218,7 +205,7 @@ function App() {
                     <p>
                       Paste a news snippet on the left and click{" "}
                       <span className="font-semibold text-slate-200">
-                        &quot;Check this story&quot;
+                        &quot;Analyze Text&quot;
                       </span>{" "}
                       to see how the model classifies it.
                     </p>
