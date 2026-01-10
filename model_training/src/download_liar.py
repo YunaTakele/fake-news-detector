@@ -11,7 +11,7 @@ def main():
 
     # Save each split (train / validation / test) as CSV
     for split in dataset:
-        df = dataset[split].to_pandas()
+        df = dataset[split].to_pandas() # this converts the Hugging Face Dataset to pandas DataFrame 
         file_path = output_dir / f"liar_{split}.csv"
         df.to_csv(file_path, index=False)
         print(f"Saved {split} -> {file_path} | rows={len(df)}")

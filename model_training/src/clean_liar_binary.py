@@ -39,12 +39,12 @@ df["label"] = df["label"].map(label_map)
 # 4. Drop ambiguous rows
 # ----------------------------
 df = df.dropna(subset=["label"])
-df["label"] = df["label"].astype(int)
+df["label"] = df["label"].astype(int) # Ensures the label column is integer type
 
 # ----------------------------
 # 5. Basic text cleanup
 # ----------------------------
-df["statement"] = df["statement"].astype(str).str.strip()
+df["statement"] = df["statement"].astype(str).str.strip() # Ensure all statemetns are strings and strips whitespaces 
 df = df[df["statement"] != ""]
 
 # ----------------------------
