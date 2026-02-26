@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 # Load the ML model once at startup
-MODEL = "jy46604790/Fake-News-Bert-Detect"
+MODEL = "../model_training/models/distilbert-fakenews"  # Path to the saved model
 clf = pipeline("text-classification", model=MODEL, tokenizer=MODEL)
 
 # Define the data model for the prediction request
@@ -35,9 +35,9 @@ def predict(req: PredictRequest):
         raw_label = result['label']
         # Map LABEL_0 / LABEL_1 to human-readable values
         if raw_label == "LABEL_0":
-            label = "REAL"
-        else:
             label = "FAKE"
+        else:
+            label = "REAL"
         score = float(result["score"])
 
         return {
