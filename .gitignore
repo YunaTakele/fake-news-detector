@@ -21,3 +21,9 @@ dist/
 # OS
 .DS_Store
 EOF
+
+model_training/models/
+model_training/data/
+*.pt
+*.safetensors
+checkpoints/
