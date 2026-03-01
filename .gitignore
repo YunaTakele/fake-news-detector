@@ -20,7 +20,6 @@ dist/
 
 # OS
 .DS_Store
-EOF
 
 # Model files -- too large for GitHub
 model_training/models/
