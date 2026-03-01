@@ -22,8 +22,15 @@ dist/
 .DS_Store
 EOF
 
+# Model files -- too large for GitHub
 model_training/models/
-model_training/data/
+model_training/data/raw/
+model_training/data/processed/
+
+# Frontend dependencies
+frontend/vite-project/node_modules/
+
+
 *.pt
 *.safetensors
 checkpoints/
