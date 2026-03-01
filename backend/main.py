@@ -7,6 +7,8 @@ from pydantic import BaseModel
 # Pydantic is used for data validation. It ensures incoming JSON looks like {"text": "some string"}.
 from transformers import pipeline
 # Transformers is a library for natural language processing. We use it to load our ML model.
+from mangum import Mangum 
+# Mangum is an adapter that allows FastAPI to run on AWS Lambda, making it easy to deploy our API in a serverless environment.
 
 app = FastAPI()  # Create an instance of the FastAPI application
 app.add_middleware(
@@ -48,3 +50,6 @@ def predict(req: PredictRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+handler = Mangum(app)  # Wrap the FastAPI app with Mangum for AWS Lambda compatibility
