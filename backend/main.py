@@ -19,7 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 # Load the ML model once at startup
-MODEL = "../model_training/models/distilbert-fakenews"  # Path to the saved model
+MODEL = "YunaTakele/distilbert-fakenews"  # Path to the saved model
 clf = pipeline("text-classification", model=MODEL, tokenizer=MODEL)
 
 # Define the data model for the prediction request
