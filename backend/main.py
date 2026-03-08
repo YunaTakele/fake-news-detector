@@ -1,16 +1,21 @@
-from fastapi.middleware.cors import CORSMiddleware
-# CORS lets your frontend talk to your backend when they are on different domains.
+from dotenv import load_dotenv
+load_dotenv()
+# Load environment variables from .env file (for local development)
+
 from fastapi import FastAPI, HTTPException
 # FastAPI is a web framework for building APIs in Python.
 # HTTPException is used to handle errors in API requests.
+from fastapi.middleware.cors import CORSMiddleware
+# CORS lets your frontend talk to your backend when they are on different domains.
 from pydantic import BaseModel
 # Pydantic is used for data validation. It ensures incoming JSON looks like {"text": "some string"}.
 from transformers import pipeline
 # Transformers is a library for natural language processing. We use it to load our ML model.
-from mangum import Mangum 
-# Mangum is an adapter that allows FastAPI to run on AWS Lambda, making it easy to deploy our API in a serverless environment.
+import os
+# os is used to read environment variables
 
 app = FastAPI()  # Create an instance of the FastAPI application
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # allow all origins for now
@@ -18,23 +23,28 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# Load the ML model once at startup
-MODEL = "YunaTakele/distilbert-fakenews"  # Path to the saved model
+
+# Load the model from Hugging Face Hub
+# This downloads the model when the server starts
+MODEL = "YunaTakele/distilbert-fakenews"
 clf = pipeline("text-classification", model=MODEL, tokenizer=MODEL)
 
-# Define the data model for the prediction request
+# Define the shape of incoming requests
 class PredictRequest(BaseModel):
     text: str
 
-@app.get("/")  # Root endpoint
+# Root endpoint — just confirms the API is running
+@app.get("/")
 def root():
-    return {"message": "API is running"}  # Must return a dictionary
+    return {"message": "API is running"}
 
-@app.post("/predict")  # Endpoint for making predictions
+# Main prediction endpoint
+@app.post("/predict")
 def predict(req: PredictRequest):
     try:
         result = clf(req.text)[0]
         raw_label = result['label']
+
         # Map LABEL_0 / LABEL_1 to human-readable values
         if raw_label == "LABEL_0":
             label = "FAKE"
@@ -50,6 +60,3 @@ def predict(req: PredictRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
-handler = Mangum(app)  # Wrap the FastAPI app with Mangum for AWS Lambda compatibility
