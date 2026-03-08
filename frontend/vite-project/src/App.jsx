@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 // URL your FastAPI backend exposes
-const API_URL = "http://127.0.0.1:8000/predict";
+const API_URL = "https://yunatakele-fake-news-detector-api.hf.space/predict";
 
 function App() {
   const [text, setText] = useState("");
